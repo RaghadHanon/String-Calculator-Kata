@@ -16,10 +16,11 @@ namespace StringCalculatorKata.Tests
         [Theory]
         [InlineData("", 0)]
         [InlineData("1", 1)]
-        [InlineData("1, 2", 3)]
-        [InlineData("1, 2, 3", 6)]
+        [InlineData("1,2,3", 6)]
         [InlineData("1,2\n3", 6)]
-        public void Add_SimpleInput_ShouldReturnTheSum(string numbers, int expectedResult)
+        [InlineData("//;\n1;2", 3)]
+        [InlineData("//\n\n1\n2", 3)]
+        public void Add_ValidFormatInput_ShouldReturnTheSum(string numbers, int expectedResult)
         {
             var result = _stringCalculator.Add(numbers);
             result.Should().Be(expectedResult);
@@ -27,15 +28,24 @@ namespace StringCalculatorKata.Tests
 
         [Theory]
         [InlineData("a,1")]
-        [InlineData("1,b,3")]
         [InlineData("1,\n")]
         [InlineData("1,\n2")]
-        public void Add_InvalidInput_ShouldThrowFormatException(string numbers)
+        public void Add_InvalidFormatInput_ShouldThrowFormatException(string numbers)
         {
             _stringCalculator
                 .Invoking(sc => sc.Add(numbers))
                 .Should().Throw<FormatException>()
                 .WithMessage($"Invalid number format: *");
+        }
+
+        [Theory]
+        [InlineData("-1,1,-2")]
+        public void Add_NegativeInput_ShouldThrowNegativesNotAllowedException(string numbers)
+        {
+            _stringCalculator
+                .Invoking(sc => sc.Add(numbers))
+                .Should().Throw<Exception>()
+                .WithMessage($"Negatives Not Allowed");
         }
     }
 }
