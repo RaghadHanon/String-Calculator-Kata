@@ -18,6 +18,7 @@ namespace StringCalculatorKata.Tests
         [InlineData("1", 1)]
         [InlineData("1, 2", 3)]
         [InlineData("1, 2, 3", 6)]
+        [InlineData("1,2\n3", 6)]
         public void Add_SimpleInput_ShouldReturnTheSum(string numbers, int expectedResult)
         {
             var result = _stringCalculator.Add(numbers);
@@ -27,6 +28,8 @@ namespace StringCalculatorKata.Tests
         [Theory]
         [InlineData("a,1")]
         [InlineData("1,b,3")]
+        [InlineData("1,\n")]
+        [InlineData("1,\n2")]
         public void Add_InvalidInput_ShouldThrowFormatException(string numbers)
         {
             _stringCalculator

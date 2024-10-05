@@ -13,7 +13,7 @@ public class StringCalculator
     private List<int> ExtractNumbers(string numbers)
     {
         return numbers
-            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Split(new [] {"," ,"\n"}, StringSplitOptions.None)
             .Select(x =>
             {
                 if (int.TryParse(x, out int parsedNumber))
