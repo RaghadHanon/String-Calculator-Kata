@@ -43,7 +43,7 @@ namespace StringCalculatorKata.Tests
         {
             _stringCalculator
                 .Invoking(sc => sc.Add(numbers))
-                .Should().Throw<Exception>()
+                .Should().Throw<NegativeNumbersNotAllowedException>()
                 .WithMessage("Negatives not allowed: -1, -2");
         }
     }
