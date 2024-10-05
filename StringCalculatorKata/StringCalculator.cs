@@ -7,7 +7,6 @@ public class StringCalculator
             return 0;
 
         var numbersList = ExtractNumbers(numbers);
-
         var negatives = numbersList.Where(x => x < 0).ToList();
         if (negatives.Any())
             throw new NegativeNumbersNotAllowedException(negatives);
@@ -26,6 +25,7 @@ public class StringCalculator
                     return parsedNumber;
                 throw new FormatException($"Invalid number format: '{x}'");
             })
+            .Where(x => x <= 1000)
             .ToList();
     }
 
