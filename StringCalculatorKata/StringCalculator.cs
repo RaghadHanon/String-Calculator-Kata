@@ -1,4 +1,6 @@
-﻿namespace StringCalculatorKata;
+﻿using System.Net;
+
+namespace StringCalculatorKata;
 public class StringCalculator
 {
     public int Add(string numbers)
@@ -38,5 +40,10 @@ public class StringCalculator
             numbers = numbers.Substring(index + 1);
         }
         else delimiters = new[] { ",", "\n" };
+    }
+
+    public static void Main(string[] args)
+    {
+
     }
 }
